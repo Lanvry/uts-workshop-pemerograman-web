@@ -1,0 +1,45 @@
+<%- include('./partials/head', { css_file: 'dashboard.css' }) %>
+
+<nav class="navbar" style="justify-content: space-between; border-bottom: 1px solid #eaeaea;">
+    <div class="navbar-brand">
+        <a href="/" style="text-decoration: none; color: inherit; display:flex; gap:0.5rem; align-items:center;">
+            <span class="brand-icon">📰</span>
+            <span class="brand-name">SIBERITA</span>
+        </a>
+    </div>
+    <div class="navbar-right">
+        <a href="/" class="btn-logout" style="border-color:#111;">&larr; Indeks Berita</a>
+    </div>
+</nav>
+
+<style>
+.article-container { max-width: 800px; margin: 0 auto; padding: 3rem 1rem; }
+.article-title { font-size: 3rem; font-weight: 800; line-height: 1.1; color: #111; margin-bottom: 1rem; }
+.article-meta { font-size: 1rem; color: #555; margin-bottom: 2rem; border-bottom: 2px solid #111; padding-bottom: 1rem; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; display: flex; justify-content: space-between;}
+.article-image { width: 100%; max-height: 500px; object-fit: cover; border-radius: 4px; margin-bottom: 2rem; border: 1px solid #eaeaea; }
+.article-body { font-size: 1.15rem; line-height: 1.8; color: #222; font-family: Georgia, serif; white-space: pre-wrap; }
+@media (max-width: 768px) { .article-title { font-size: 2rem; } .article-meta { flex-direction: column; gap: 0.5rem; } }
+</style>
+
+<article class="article-container">
+    <h1 class="article-title"><%= berita.judul %></h1>
+    <div class="article-meta">
+        <span>Oleh: <%= berita.penulis_nama %></span>
+        <span style="color:#888; font-size:0.85rem;"><%= berita.penulis_email %></span>
+    </div>
+
+    <% if(berita.gambar_berita && berita.gambar_berita.startsWith('http')) { %>
+        <img src="<%= berita.gambar_berita %>" class="article-image" alt="Cover Image">
+    <% } else if(berita.gambar_berita) { %>
+        <img src="/<%= berita.gambar_berita %>" class="article-image" alt="Cover Image">
+    <% } %>
+
+    <div class="article-body"><%- berita.isi_berita %></div>
+</article>
+
+<footer style="background: #111; color: #fff; text-align: center; padding: 2rem; margin-top: 4rem;">
+    <p style="margin:0; font-weight:600; letter-spacing:1px; font-size: 1.2rem;">SIBERITA</p>
+    <p style="margin:0; font-size:0.85rem; color:#888;">© 2026 Portal Berita Hitam Putih. All Rights Reserved.</p>
+</footer>
+
+<%- include('./partials/foot') %>

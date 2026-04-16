@@ -54,15 +54,19 @@ router.get('/create', isAuth, function(req, res, next) {
 /* POST create berita. */
 router.post('/store', isAuth, upload.single('gambar_berita'), async function(req, res, next) {
     try {
-        let { judul, isi_berita } = req.body;
+        let { judul, isi_berita, gambar_url } = req.body;
         let data = {
             judul: judul,
             isi_berita: isi_berita,
             id_penulis: req.session.user.id
         };
+        
         if(req.file) {
             data.gambar_berita = 'uploads/' + req.file.filename;
+        } else if(gambar_url) {
+            data.gambar_berita = gambar_url;
         }
+        
         await Model_Berita.insert(data);
         req.flash('success', 'Berhasil menambahkan berita!');
         res.redirect('/dashboard/berita');
@@ -98,7 +102,7 @@ router.get('/edit/:id', isAuth, async function(req, res, next) {
 router.post('/update/:id', isAuth, upload.single('gambar_berita'), async function(req, res, next) {
     try {
         let id = req.params.id;
-        let { judul, isi_berita } = req.body;
+        let { judul, isi_berita, gambar_url } = req.body;
         let data = {
             judul: judul,
             isi_berita: isi_berita
@@ -106,6 +110,8 @@ router.post('/update/:id', isAuth, upload.single('gambar_berita'), async functio
         
         if (req.file) {
             data.gambar_berita = 'uploads/' + req.file.filename;
+        } else if (gambar_url) {
+            data.gambar_berita = gambar_url;
         }
         
         await Model_Berita.update(id, data);

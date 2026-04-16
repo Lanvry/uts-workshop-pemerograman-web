@@ -60,6 +60,24 @@ class Model_Berita {
             });
         });
     }
+
+    static async getPublicAll() {
+        return new Promise((resolve, reject) => {
+            connection.query("SELECT berita.*, penulis.nama as penulis_nama, penulis.email as penulis_email FROM berita JOIN penulis ON berita.id_penulis = penulis.id ORDER BY berita.id DESC", function(err, data) {
+                if(err) reject(err);
+                else resolve(data);
+            });
+        });
+    }
+
+    static async getPublicById(id) {
+        return new Promise((resolve, reject) => {
+            connection.query("SELECT berita.*, penulis.nama as penulis_nama, penulis.email as penulis_email FROM berita JOIN penulis ON berita.id_penulis = penulis.id WHERE berita.id = ?", [id], function(err, data) {
+                if(err) reject(err);
+                else resolve(data);
+            });
+        });
+    }
 }
 
 module.exports = Model_Berita;

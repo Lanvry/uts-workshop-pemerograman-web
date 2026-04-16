@@ -30,10 +30,14 @@
             <% data.forEach(function(item) { %>
                 <tr>
                     <td><%= item.judul %></td>
-                    <td><%= item.isi_berita.substring(0, 100) %>...</td>
+                    <td><%= item.isi_berita.replace(/<[^>]*>?/gm, '').substring(0, 100) %>...</td>
                     <td>
                         <% if (item.gambar_berita) { %>
-                            <img src="/<%= item.gambar_berita %>" alt="Gambar" width="80" style="border-radius:4px; border:1px solid #ddd;">
+                            <% if(item.gambar_berita.startsWith('http')) { %>
+                                <img src="<%= item.gambar_berita %>" alt="Gambar" width="80" style="border-radius:4px; border:1px solid #ddd;">
+                            <% } else { %>
+                                <img src="/<%= item.gambar_berita %>" alt="Gambar" width="80" style="border-radius:4px; border:1px solid #ddd;">
+                            <% } %>
                         <% } else { %>
                             <small>Tidak ada gambar</small>
                         <% } %>

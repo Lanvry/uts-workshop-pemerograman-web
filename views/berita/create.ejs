@@ -21,8 +21,19 @@
             </div>
 
             <div style="margin-bottom: 1.5rem;">
-                <label for="gambar_berita" style="display:block; font-weight:600; margin-bottom:0.5rem; color:#111;">Gambar Berita</label>
-                <input type="file" id="gambar_berita" name="gambar_berita" accept="image/*" style="width:100%; padding:0.5rem; border:1px solid #ccc; border-radius:4px; font-family:inherit;">
+                <label style="display:block; font-weight:600; margin-bottom:0.5rem; color:#111;">Metode Input Gambar</label>
+                <div style="margin-bottom: 1rem;">
+                    <label style="margin-right: 1.5rem; cursor:pointer;"><input type="radio" name="tipe_gambar" value="upload" checked onchange="toggleImageInput()"> Pilih File Komputer</label>
+                    <label style="cursor:pointer;"><input type="radio" name="tipe_gambar" value="url" onchange="toggleImageInput()"> Tempel URL Eksternal</label>
+                </div>
+
+                <div id="wrap_upload">
+                    <input type="file" id="gambar_berita" name="gambar_berita" accept="image/*" style="width:100%; padding:0.5rem; border:1px solid #ccc; border-radius:4px; font-family:inherit;">
+                </div>
+
+                <div id="wrap_url" style="display:none;">
+                    <input type="url" id="gambar_url" name="gambar_url" placeholder="https://..." style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family:inherit;">
+                </div>
             </div>
 
             <div style="margin-bottom: 1.5rem;">
@@ -36,6 +47,36 @@
             </div>
 
         </form>
+
+        <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+        <script>
+            tinymce.init({
+                selector: '#isi_berita',
+                plugins: 'lists link image preview',
+                toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist | link',
+                menubar: false,
+                height: 400,
+                branding: false
+            });
+
+            function toggleImageInput() {
+                const tipe = document.querySelector('input[name="tipe_gambar"]:checked').value;
+                const wrapUpload = document.getElementById('wrap_upload');
+                const wrapUrl = document.getElementById('wrap_url');
+                const uploadInput = document.getElementById('gambar_berita');
+                const urlInput = document.getElementById('gambar_url');
+
+                if (tipe === 'upload') {
+                    wrapUpload.style.display = 'block';
+                    wrapUrl.style.display = 'none';
+                    urlInput.value = ''; 
+                } else {
+                    wrapUpload.style.display = 'none';
+                    wrapUrl.style.display = 'block';
+                    uploadInput.value = ''; 
+                }
+            }
+        </script>
     </div>
 </main>
 

@@ -1,12 +1,93 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title><%= title %></title>
-    <link rel="stylesheet" href="/stylesheets/style.css">
-</head>
-<body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <a href="/login">Login</a> | <a href="/register">Register</a>
-</body>
-</html>
+<%- include('./partials/head', { css_file: 'dashboard.css' }) %>
+
+<nav class="navbar" style="justify-content: space-between;">
+    <div class="navbar-brand">
+        <span class="brand-icon">📰</span>
+        <span class="brand-name">SIBERITA</span>
+    </div>
+    <div class="navbar-right">
+        <% if(isLoggedIn) { %>
+            <a href="/dashboard" class="btn-logout" style="border-color:#111;">Dashboard Penulis</a>
+        <% } else { %>
+            <a href="/login" class="btn-logout" style="border-color:#111;">Masuk Penulis</a>
+        <% } %>
+    </div>
+</nav>
+
+<style>
+/* Public Portal Specific CSS */
+.portal-container { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }
+.headline-section { margin-bottom: 3rem; display: grid; gap: 2rem; grid-template-columns: 2fr 1fr; border-bottom: 2px solid #111; padding-bottom: 2rem;}
+@media (max-width: 768px) { .headline-section { grid-template-columns: 1fr; } }
+.headline-main-img { width: 100%; height: 400px; object-fit: cover; border-radius: 4px; border: 1px solid #eaeaea; }
+.headline-title { font-size: 2.5rem; font-weight: 800; line-height: 1.2; margin: 1rem 0; color: #111; text-decoration: none; display: block; }
+.headline-title:hover { text-decoration: underline; }
+.news-meta { font-size: 0.85rem; color: #666; margin-bottom: 1rem; text-transform: uppercase; font-weight: 600; letter-spacing: 1px;}
+.news-excerpt { font-size: 1.1rem; color: #444; line-height: 1.6; }
+
+.grid-section h3 { border-bottom: 2px solid #111; padding-bottom: 0.5rem; margin-bottom: 1.5rem; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 1px; }
+.news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 2rem; }
+.news-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 4px; border: 1px solid #eaeaea; margin-bottom: 0.75rem; }
+.news-card-title { font-size: 1.1rem; font-weight: 700; line-height: 1.3; color: #111; text-decoration: none; display: block; margin-bottom: 0.5rem; }
+.news-card-title:hover { text-decoration: underline; }
+</style>
+
+<div class="portal-container">
+    <% if(berita && berita.length > 0) { %>
+        <!-- HEADLINE (Berita Pertama) -->
+        <div class="headline-section">
+            <div>
+                <a href="/baca/<%= berita[0].id %>">
+                    <% if(berita[0].gambar_berita && berita[0].gambar_berita.startsWith('http')) { %>
+                        <img src="<%= berita[0].gambar_berita %>" class="headline-main-img" alt="Headline">
+                    <% } else if(berita[0].gambar_berita) { %>
+                        <img src="/<%= berita[0].gambar_berita %>" class="headline-main-img" alt="Headline">
+                    <% } else { %>
+                        <div class="headline-main-img" style="background:#f0f0f0; display:flex; align-items:center; justify-content:center; font-size: 2rem; color:#aaa;">SIBERITA</div>
+                    <% } %>
+                </a>
+            </div>
+            <div>
+                <div class="news-meta">Oleh <%= berita[0].penulis_nama %></div>
+                <a href="/baca/<%= berita[0].id %>" class="headline-title"><%= berita[0].judul %></a>
+                <p class="news-excerpt"><%= berita[0].isi_berita.replace(/<[^>]*>?/gm, '').substring(0, 180) %>...</p>
+            </div>
+        </div>
+
+        <!-- TERKINI (Grid Berita Sisanya) -->
+        <% if(berita.length > 1) { %>
+            <div class="grid-section">
+                <h3>Berita Terkini</h3>
+                <div class="news-grid">
+                    <% for(let i = 1; i < berita.length; i++) { let b = berita[i]; %>
+                        <div class="news-card">
+                            <a href="/baca/<%= b.id %>">
+                                <% if(b.gambar_berita && b.gambar_berita.startsWith('http')) { %>
+                                    <img src="<%= b.gambar_berita %>" alt="Thumbnail">
+                                <% } else if(b.gambar_berita) { %>
+                                    <img src="/<%= b.gambar_berita %>" alt="Thumbnail">
+                                <% } else { %>
+                                    <div style="width:100%; height:180px; background:#f0f0f0; display:flex; align-items:center; justify-content:center; color:#aaa; margin-bottom:0.75rem;">FOTO</div>
+                                <% } %>
+                            </a>
+                            <div class="news-meta" style="font-size: 0.75rem; margin-bottom: 0.25rem;"><%= b.penulis_nama %></div>
+                            <a href="/baca/<%= b.id %>" class="news-card-title"><%= b.judul %></a>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        <% } %>
+
+    <% } else { %>
+        <div style="text-align: center; padding: 5rem 0;">
+            <h2>Belum ada berita yang diterbitkan.</h2>
+        </div>
+    <% } %>
+</div>
+
+<footer style="background: #111; color: #fff; text-align: center; padding: 2rem; margin-top: 4rem;">
+    <p style="margin:0; font-weight:600; letter-spacing:1px; font-size: 1.2rem;">SIBERITA</p>
+    <p style="margin:0; font-size:0.85rem; color:#888;">© 2026 Arjuna Lanang Adiwarsana. All Rights Reserved.</p>
+</footer>
+
+<%- include('./partials/foot') %>
