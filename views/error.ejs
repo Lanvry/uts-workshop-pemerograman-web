@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Error</title>
-    <link rel="stylesheet" href="/stylesheets/style.css">
-</head>
-<body>
+<%- include('./partials/head', { title: 'Error', css_file: 'style.css' }) %>
+
+<div style="padding: 2rem;">
     <h1><%= message %></h1>
-    <h2><%= error.status %></h2>
-    <pre><%= error.stack %></pre>
-</body>
-</html>
+    <h2><%= typeof error !== 'undefined' && error.status ? error.status : '' %></h2>
+    <pre><%= typeof error !== 'undefined' && error.stack ? error.stack : '' %></pre>
+</div>
+
+<%- include('./partials/foot') %>

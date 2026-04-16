@@ -1,0 +1,30 @@
+<% if (typeof messages !== 'undefined') { %>
+    <% if (messages.error) { %>
+        <div class="alert alert-error">
+            <span class="alert-icon">⚠️</span>
+            <span><%= messages.error %></span>
+        </div>
+    <% } %>
+
+    <% if (messages.success) { %>
+        <div class="alert alert-success">
+            <span class="alert-icon">✅</span>
+            <span><%= messages.success %></span>
+        </div>
+    <% } %>
+<% } else { %>
+    <% /* Failover jika menggunakan success/error biasa tanpa struct messages */ %>
+    <% if (typeof error !== 'undefined' && error.length > 0) { %>
+        <div class="alert alert-error">
+            <span class="alert-icon">⚠️</span>
+            <span><%= error %></span>
+        </div>
+    <% } %>
+
+    <% if (typeof success !== 'undefined' && success.length > 0) { %>
+        <div class="alert alert-success">
+            <span class="alert-icon">✅</span>
+            <span><%= success %></span>
+        </div>
+    <% } %>
+<% } %>

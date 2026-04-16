@@ -73,7 +73,7 @@ router.get('/dashboard', isAuth, function (req, res, next) {
   res.render('dashboard', {
     title: 'Dashboard Penulis',
     penulis: req.session.user, 
-    success: req.flash('success')
+    messages: req.flash()
   });
 });
 
