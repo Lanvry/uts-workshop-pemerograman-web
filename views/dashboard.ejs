@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="/stylesheets/dashboard.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <span class="brand-icon">📰</span>
+            <span class="brand-name">Siberita</span>
+        </div>
+        <div class="navbar-right">
+            <span class="nav-user">👋 <%= penulis.nama %></span>
+            <a class="btn-logout" href="/logout">Keluar</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="dashboard-header">
+            <h2 class="page-title">Dashboard Penulis</h2>
+            <p class="page-sub">Selamat datang kembali, <%= penulis.nama %>!</p>
+        </div>
+
+        <% if (typeof success !== 'undefined' && success.length > 0) { %>
+            <div class="alert alert-success">
+                <span class="alert-icon">✅</span>
+                <span><%= success[0] %></span>
+            </div>
+        <% } %>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">📝</div>
+                <div class="stat-info">
+                    <h3>Buat Berita</h3>
+                    <p>Tulis artikel baru</p>
+                </div>
+                <a class="stat-link" href="#">Mulai Menulis →</a>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">📰</div>
+                <div class="stat-info">
+                    <h3>Berita Saya</h3>
+                    <p>Kelola semua artikel</p>
+                </div>
+                <a class="stat-link" href="#">Lihat Semua →</a>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">👤</div>
+                <div class="stat-info">
+                    <h3>Profil</h3>
+                    <p>Email: <%= penulis.email %></p>
+                </div>
+                <a class="stat-link" href="#">Edit Profil →</a>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🚪</div>
+                <div class="stat-info">
+                    <h3>Keluar</h3>
+                    <p>Akhiri sesi sekarang</p>
+                </div>
+                <a class="stat-link" href="/logout">Logout →</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="/stylesheets/auth.css">
+</head>
+<body>
+    <div class="auth-wrapper">
+        <div class="auth-card">
+            <div class="auth-brand">
+                <div class="brand-icon">📰</div>
+                <h1 class="brand-title">Siberita</h1>
+                <p class="brand-sub">Platform Berita Digital</p>
+            </div>
+
+            <h2 class="auth-heading">Buat Akun Baru</h2>
+            <p class="auth-subheading">Bergabung dan mulai menulis berita</p>
+
+            <% if (messages.error) { %>
+                <div class="alert alert-error">
+                    <span class="alert-icon">⚠️</span>
+                    <span><%= messages.error %></span>
+                </div>
+            <% } %>
+
+            <% if (messages.success) { %>
+                <div class="alert alert-success">
+                    <span class="alert-icon">✅</span>
+                    <span><%= messages.success %></span>
+                </div>
+            <% } %>
+
+            <form action="/registerSave" method="POST" novalidate>
+                <div class="form-group">
+                    <label for="nama">Nama Lengkap</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">👤</span>
+                        <input id="nama" type="text" name="nama" placeholder="Nama lengkap kamu" value="<%= (typeof old !== 'undefined' && old.nama) ? old.nama : '' %>" required autocomplete="name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">📧</span>
+                        <input id="email" type="email" name="email" placeholder="nama@email.com" value="<%= (typeof old !== 'undefined' && old.email) ? old.email : '' %>" required autocomplete="email">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🔒</span>
+                        <input id="password" type="password" name="password" placeholder="Minimal 6 karakter" required autocomplete="new-password">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="konfirmasi_password">Konfirmasi Password</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🔏</span>
+                        <input id="konfirmasi_password" type="password" name="konfirmasi_password" placeholder="Ulangi password" required autocomplete="new-password">
+                    </div>
+                </div>
+
+                <button class="btn-auth" type="submit">Daftar Sekarang</button>
+            </form>
+
+            <div class="auth-footer">
+                <span>Sudah punya akun?&nbsp;</span>
+                <a href="/login">Masuk di sini</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
