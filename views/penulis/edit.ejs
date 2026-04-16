@@ -1,0 +1,44 @@
+<%- include('../partials/head', { css_file: 'dashboard.css' }) %>
+<%- include('../partials/navbar', { penulis: penulis }) %>
+
+<main class="main-content">
+    <div class="dashboard-header" style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+            <h2 class="page-title">Edit Akses Jurnalis</h2>
+            <p class="page-sub">Mengkoreksi data personal atau menyetel ulang password secara paksa (Admin Only)</p>
+        </div>
+        <a href="/dashboard/penulis" class="btn-logout" style="border-color:#ccc;">&larr; Kembali</a>
+    </div>
+
+    <%- include('../partials/messages') %>
+
+    <div class="stat-card" style="max-width: 600px;">
+        <form action="/dashboard/penulis/update/<%= target_penulis.id %>" method="POST">
+            
+            <div style="margin-bottom: 1.5rem;">
+                <label for="nama" style="display:block; font-weight:600; margin-bottom:0.5rem; color:#111;">Nama Lengkap</label>
+                <input type="text" id="nama" name="nama" value="<%= target_penulis.nama %>" required style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family:inherit;">
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+                <label for="email" style="display:block; font-weight:600; margin-bottom:0.5rem; color:#111;">Alamat Email Penulis</label>
+                <input type="email" id="email" name="email" value="<%= target_penulis.email %>" required style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family:inherit;">
+            </div>
+
+            <div style="padding: 1.5rem; background: #fafafa; border: 1px dashed #ccc; margin-bottom: 1.5rem; border-radius: 4px;">
+                <h4 style="margin-top:0; color:#555;">⚡ Zona Reset Password Paksa</h4>
+                <p style="font-size:0.9rem; color:#888; margin-bottom:1rem;">Biarkan kolom di bawah ini tetap KOSONG jika Anda tidak ingin merubah/mengintervensi *Password* milik Jurnalis yang bersangkutan.</p>
+                
+                <label for="password" style="display:block; font-weight:600; margin-bottom:0.5rem; color:#111;">Tetapkan Password Baru (Opsional)</label>
+                <input type="text" id="password" name="password" placeholder="Ketik kata sandi (Akan otomatis di-hash)" style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family:inherit;">
+            </div>
+
+            <div style="display:flex; gap: 1rem; margin-top: 2rem;">
+                <button type="submit" class="btn-table btn-table-solid" style="padding: 0.75rem 1.5rem; font-size: 1rem;">Terapkan Modifikasi</button>
+            </div>
+
+        </form>
+    </div>
+</main>
+
+<%- include('../partials/foot') %>

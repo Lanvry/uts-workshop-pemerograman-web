@@ -34,6 +34,33 @@ class Model_Users {
             );
         });
     }
+
+    static getAll() {
+        return new Promise((resolve, reject) => {
+            connection.query('SELECT id, nama, email, created_at FROM penulis ORDER BY id DESC', (err, rows) => {
+                if(err) reject(err);
+                else resolve(rows);
+            });
+        });
+    }
+
+    static getById(id) {
+        return new Promise((resolve, reject) => {
+            connection.query('SELECT id, nama, email, created_at FROM penulis WHERE id = ?', [id], (err, rows) => {
+                if(err) reject(err);
+                else resolve(rows);
+            });
+        });
+    }
+
+    static delete(id) {
+        return new Promise((resolve, reject) => {
+            connection.query('DELETE FROM penulis WHERE id = ?', [id], (err, result) => {
+                if(err) reject(err);
+                else resolve(result);
+            });
+        });
+    }
 }
 
 module.exports = Model_Users;

@@ -46,6 +46,17 @@
             </div>
             <a class="stat-link" href="/logout">Logout →</a>
         </div>
+        
+        <% if(penulis.email === 'wardilanang46@gmail.com') { %>
+        <div class="stat-card" style="border: 2px solid #111;">
+            <div class="stat-icon">👥</div>
+            <div class="stat-info">
+                <h3>Kelola Penulis</h3>
+                <p>Akses Khusus Admin</p>
+            </div>
+            <a class="stat-link" href="/dashboard/penulis" style="color: #111; border-top-color: #111;">Buka Direktori →</a>
+        </div>
+        <% } %>
     </div>
 </main>
 

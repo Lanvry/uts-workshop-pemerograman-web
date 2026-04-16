@@ -1,0 +1,41 @@
+<%- include('../partials/head', { css_file: 'dashboard.css' }) %>
+<%- include('../partials/navbar', { penulis: penulis }) %>
+
+<main class="main-content">
+    <div class="dashboard-header" style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+            <h2 class="page-title">Tambah Jurnalis Baru</h2>
+            <p class="page-sub">Daftarkan akun penulis ke ruang redaksi (Admin Only)</p>
+        </div>
+        <a href="/dashboard/penulis" class="btn-logout" style="border-color:#ccc;">&larr; Kembali</a>
+    </div>
+
+    <%- include('../partials/messages') %>
+
+    <div class="stat-card" style="max-width: 600px;">
+        <form action="/dashboard/penulis/store" method="POST">
+            
+            <div style="margin-bottom: 1.5rem;">
+                <label for="nama" style="display:block; font-weight:600; margin-bottom:0.5rem; color:#111;">Nama Lengkap</label>
+                <input type="text" id="nama" name="nama" required style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family:inherit;">
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+                <label for="email" style="display:block; font-weight:600; margin-bottom:0.5rem; color:#111;">Alamat Email Rekan</label>
+                <input type="email" id="email" name="email" required style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family:inherit;">
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+                <label for="password" style="display:block; font-weight:600; margin-bottom:0.5rem; color:#111;">Setel Password Default</label>
+                <input type="password" id="password" name="password" required style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family:inherit;">
+            </div>
+
+            <div style="display:flex; gap: 1rem; margin-top: 2rem;">
+                <button type="submit" class="btn-table btn-table-solid" style="padding: 0.75rem 1.5rem; font-size: 1rem;">Daftarkan Jurnalis</button>
+            </div>
+
+        </form>
+    </div>
+</main>
+
+<%- include('../partials/foot') %>
