@@ -1,9 +1,17 @@
 const connection = require('../config/database');
 
 class Model_Berita {
-    static async getAll(){
+    static async getAll(id_penulis = null){
         return new Promise((resolve, reject) => {
-            connection.query("SELECT * FROM berita ORDER BY id DESC", function(err, data){
+            let query = "SELECT * FROM berita";
+            let params = [];
+            if(id_penulis) {
+                query += " WHERE id_penulis = ?";
+                params.push(id_penulis);
+            }
+            query += " ORDER BY id DESC";
+            
+            connection.query(query, params, function(err, data){
                 if(err) reject(err);
                 else resolve(data);
             });

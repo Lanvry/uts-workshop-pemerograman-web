@@ -24,7 +24,7 @@ const upload = multer({ storage: storage });
 /* GET list berita. */
 router.get('/', isAuth, async function(req, res, next) {
   try {
-    var data = await Model_Berita.getAll();
+    var data = await Model_Berita.getAll(req.session.user.id);
     res.render('berita/index', {
       title: 'Manajemen Berita',
       data: data,
@@ -55,6 +55,11 @@ router.get('/create', isAuth, function(req, res, next) {
 router.post('/store', isAuth, upload.single('gambar_berita'), async function(req, res, next) {
     try {
         let { judul, isi_berita, gambar_url } = req.body;
+        
+        // Proteksi crash ER_DATA_TOO_LONG jika copy paste dari luar
+        if(judul) judul = judul.substring(0, 250);
+        if(gambar_url) gambar_url = gambar_url.substring(0, 250);
+
         let data = {
             judul: judul,
             isi_berita: isi_berita,
@@ -71,6 +76,7 @@ router.post('/store', isAuth, upload.single('gambar_berita'), async function(req
         req.flash('success', 'Berhasil menambahkan berita!');
         res.redirect('/dashboard/berita');
     } catch(err) {
+        console.error("GAGAL SIMPAN BERITA:", err);
         req.flash('error', 'Gagal menyimpan berita.');
         res.redirect('/dashboard/berita/create');
     }
@@ -103,6 +109,11 @@ router.post('/update/:id', isAuth, upload.single('gambar_berita'), async functio
     try {
         let id = req.params.id;
         let { judul, isi_berita, gambar_url } = req.body;
+
+        // Proteksi crash ER_DATA_TOO_LONG jika copy paste dari luar
+        if(judul) judul = judul.substring(0, 250);
+        if(gambar_url) gambar_url = gambar_url.substring(0, 250);
+
         let data = {
             judul: judul,
             isi_berita: isi_berita

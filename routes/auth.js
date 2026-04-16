@@ -85,7 +85,7 @@ router.get('/dashboard', isAuth, async function (req, res, next) {
             messages: req.flash(),
             total_berita: total
         });
-    } catch(err) {
+    } catch (err) {
         res.render('dashboard', {
             title: 'Dashboard Penulis',
             penulis: req.session.user,
@@ -109,7 +109,7 @@ router.post('/dashboard/profile/update', isAuth, async function (req, res, next)
     try {
         const { nama, email, password, konfirmasi_password } = req.body;
         const id_penulis = req.session.user.id;
-        
+
         // Data dasar yang akan diupdate
         let dataToUpdate = { nama, email };
 
@@ -122,16 +122,16 @@ router.post('/dashboard/profile/update', isAuth, async function (req, res, next)
             // Hash password baru sebelum masuk db
             dataToUpdate.password = bcrypt.hashSync(password, 10);
         }
-        
+
         await Model_Users.UpdateProfile(id_penulis, dataToUpdate);
-        
+
         // Update session lokal secara langsung agar UI navbar dsb langsung refresh namanya
         req.session.user.nama = nama;
         req.session.user.email = email;
 
         req.flash('success', 'Berhasil memperbarui profil!');
         res.redirect('/dashboard/profile');
-    } catch(err) {
+    } catch (err) {
         req.flash('error', 'Gagal memperbarui profil: Karena email mungkin sudah digunakan akun lain.');
         res.redirect('/dashboard/profile');
     }

@@ -17,7 +17,7 @@
             
             <div style="margin-bottom: 1.5rem;">
                 <label for="judul" style="display:block; font-weight:600; margin-bottom:0.5rem; color:#111;">Judul Berita</label>
-                <input type="text" id="judul" name="judul" required style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family:inherit;">
+                <input type="text" id="judul" name="judul" required maxlength="250" style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family:inherit;">
             </div>
 
             <div style="margin-bottom: 1.5rem;">
@@ -32,13 +32,13 @@
                 </div>
 
                 <div id="wrap_url" style="display:none;">
-                    <input type="url" id="gambar_url" name="gambar_url" placeholder="https://..." style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family:inherit;">
+                    <input type="url" id="gambar_url" name="gambar_url" placeholder="https://..." maxlength="250" style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family:inherit;">
                 </div>
             </div>
 
             <div style="margin-bottom: 1.5rem;">
                 <label for="isi_berita" style="display:block; font-weight:600; margin-bottom:0.5rem; color:#111;">Isi Berita</label>
-                <textarea id="isi_berita" name="isi_berita" rows="10" required style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family:inherit; resize:vertical;"></textarea>
+                <textarea id="isi_berita" name="isi_berita" rows="10" style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family:inherit; resize:vertical;"></textarea>
             </div>
 
             <div style="display:flex; gap: 1rem; margin-top: 2rem;">
@@ -48,7 +48,7 @@
 
         </form>
 
-        <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js" referrerpolicy="origin"></script>
         <script>
             tinymce.init({
                 selector: '#isi_berita',
