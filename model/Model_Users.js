@@ -22,6 +22,18 @@ class Model_Users {
             );
         });
     }
+    static UpdateProfile(id, data) {
+        return new Promise((resolve, reject) => {
+            connection.query(
+                'UPDATE penulis SET ? WHERE id = ?',
+                [data, id],
+                (err, result) => {
+                    if (err) reject(err);
+                    else resolve(result);
+                }
+            );
+        });
+    }
 }
 
 module.exports = Model_Users;

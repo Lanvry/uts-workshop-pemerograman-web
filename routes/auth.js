@@ -95,5 +95,46 @@ router.get('/dashboard', isAuth, async function (req, res, next) {
     }
 });
 
+/* GET profile. */
+router.get('/dashboard/profile', isAuth, function (req, res, next) {
+    res.render('profile/index', {
+        title: 'Profil Penulis',
+        penulis: req.session.user,
+        messages: req.flash()
+    });
+});
+
+/* POST update profile. */
+router.post('/dashboard/profile/update', isAuth, async function (req, res, next) {
+    try {
+        const { nama, email, password, konfirmasi_password } = req.body;
+        const id_penulis = req.session.user.id;
+        
+        // Data dasar yang akan diupdate
+        let dataToUpdate = { nama, email };
+
+        // Validasi jika user mengisi password baru
+        if (password) {
+            if (password !== konfirmasi_password) {
+                req.flash('error', 'Konfirmasi password baru tidak cocok.');
+                return res.redirect('/dashboard/profile');
+            }
+            // Hash password baru sebelum masuk db
+            dataToUpdate.password = bcrypt.hashSync(password, 10);
+        }
+        
+        await Model_Users.UpdateProfile(id_penulis, dataToUpdate);
+        
+        // Update session lokal secara langsung agar UI navbar dsb langsung refresh namanya
+        req.session.user.nama = nama;
+        req.session.user.email = email;
+
+        req.flash('success', 'Berhasil memperbarui profil!');
+        res.redirect('/dashboard/profile');
+    } catch(err) {
+        req.flash('error', 'Gagal memperbarui profil: Karena email mungkin sudah digunakan akun lain.');
+        res.redirect('/dashboard/profile');
+    }
+});
 
 module.exports = router;

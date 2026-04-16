@@ -1,0 +1,56 @@
+<%- include('../partials/head', { css_file: 'dashboard.css' }) %>
+<%- include('../partials/navbar', { penulis: penulis }) %>
+
+<main class="main-content">
+    <div class="dashboard-header" style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+            <h2 class="page-title">Profil Penulis</h2>
+            <p class="page-sub">Informasi akun Anda</p>
+        </div>
+        <a href="/dashboard" class="btn-logout" style="border-color:#ccc;">&larr; Kembali</a>
+    </div>
+
+    <%- include('../partials/messages') %>
+
+    <div class="stat-card" style="max-width: 600px; margin: 0 auto;">
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <div style="width: 100px; height: 100px; background-color: #111; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 1rem; font-weight: 700;">
+                <%= penulis.nama.charAt(0).toUpperCase() %>
+            </div>
+            <h3 style="font-size: 1.5rem; color: #111;"><%= penulis.nama %></h3>
+            <p style="color: #666;"><%= penulis.email %></p>
+        </div>
+
+        <form action="/dashboard/profile/update" method="POST">
+            <div style="margin-bottom: 1.5rem;">
+                <label for="nama" style="display:block; font-weight:600; margin-bottom:0.5rem; color:#111;">Nama Lengkap</label>
+                <input type="text" id="nama" name="nama" value="<%= penulis.nama %>" required style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family:inherit; background:#fff;">
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+                <label for="email" style="display:block; font-weight:600; margin-bottom:0.5rem; color:#111;">Alamat Email</label>
+                <input type="email" id="email" name="email" value="<%= penulis.email %>" required style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family:inherit; background:#fff;">
+            </div>
+
+            <div style="margin-top: 2rem; border-top: 1px dashed #ccc; padding-top: 1.5rem;">
+                <h4 style="font-size: 1.1rem; margin-bottom: 1rem; margin-top: 0;">Ubah Password <span style="font-size: 0.8rem; font-weight: 400; color: #666;">(Opsional - kosongkan jika tidak ingin ganti)</span></h4>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="password" style="display:block; font-weight:600; margin-bottom:0.5rem; color:#111;">Password Baru</label>
+                    <input type="password" id="password" name="password" placeholder="Minimal 6 karakter" style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family:inherit; background:#fff;">
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="konfirmasi_password" style="display:block; font-weight:600; margin-bottom:0.5rem; color:#111;">Konfirmasi Password Baru</label>
+                    <input type="password" id="konfirmasi_password" name="konfirmasi_password" placeholder="Ulangi password baru" style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family:inherit; background:#fff;">
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; border-top: 1px solid #eaeaea; padding-top: 1.5rem; display: flex; justify-content: center;">
+                <button type="submit" class="btn-table btn-table-solid" style="padding: 0.75rem 2rem; font-size: 1rem;">Simpan Perubahan</button>
+            </div>
+        </form>
+    </div>
+</main>
+
+<%- include('../partials/foot') %>
