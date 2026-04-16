@@ -4,49 +4,56 @@
 
 <main class="main-content">
     <div class="dashboard-header">
-        <h2 class="page-title">Dashboard Penulis</h2>
-        <p class="page-sub">Selamat datang kembali, <%= penulis.nama %>!</p>
+        <h2 class="page-title">Manajemen Berita</h2>
+        <p class="page-sub">Kelola berita Anda</p>
     </div>
 
     <%- include('../partials/messages') %>
 
-    <div class="stats-grid">
-        <div class="stat-card">
-            <div class="stat-icon">📝</div>
-            <div class="stat-info">
-                <h3>Buat Berita</h3>
-                <p>Tulis artikel baru</p>
-            </div>
-            <a class="stat-link" href="#">Mulai Menulis →</a>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-icon">📰</div>
-            <div class="stat-info">
-                <h3>Berita Saya</h3>
-                <p>Kelola semua artikel</p>
-            </div>
-            <a class="stat-link" href="#">Lihat Semua →</a>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-icon">👤</div>
-            <div class="stat-info">
-                <h3>Profil</h3>
-                <p>Email: <%= penulis.email %></p>
-            </div>
-            <a class="stat-link" href="#">Edit Profil →</a>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-icon">🚪</div>
-            <div class="stat-info">
-                <h3>Keluar</h3>
-                <p>Akhiri sesi sekarang</p>
-            </div>
-            <a class="stat-link" href="/logout">Logout →</a>
-        </div>
+    <div style="margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;">
+        <a href="/dashboard" class="btn-logout" style="display:inline-block; border-color:#ccc;">&larr; Kembali ke Dashboard</a>
+        <a href="/dashboard/berita/create" class="btn-logout" style="display:inline-block; background:#111; color:#fff;">+ Tambah Berita Baru</a>
     </div>
+
+    <table id="myTable" class="display" style="background:#fff; border-radius:8px; border: 1px solid #e0e0e0;">
+    <thead>
+        <tr>
+           <th>Judul</th>
+           <th>Isi berita</th>
+           <th>Gambar Berita</th>
+           <th>ID Penulis</th>
+           <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% if (data && data.length > 0) { %>
+            <% data.forEach(function(item) { %>
+                <tr>
+                    <td><%= item.judul %></td>
+                    <td><%= item.isi_berita.substring(0, 100) %>...</td>
+                    <td>
+                        <% if (item.gambar_berita) { %>
+                            <img src="/<%= item.gambar_berita %>" alt="Gambar" width="80" style="border-radius:4px; border:1px solid #ddd;">
+                        <% } else { %>
+                            <small>Tidak ada gambar</small>
+                        <% } %>
+                    </td>
+                    <td><%= item.id_penulis %></td>
+                    <td>
+                        <a href="/dashboard/berita/edit/<%= item.id %>" class="btn-table btn-table-outline">Edit</a>
+                        <a href="/dashboard/berita/delete/<%= item.id %>" class="btn-table btn-table-solid">Hapus</a>
+                    </td>
+                </tr>
+            <% }); %>
+        <% } else { %>
+            <tr>
+                <td colspan="5" style="text-align: center;">Belum ada berita.</td>
+            </tr>
+        <% } %>
+    </tbody>
+</table>
+
+    
 </main>
 
 <%- include('../partials/foot') %>

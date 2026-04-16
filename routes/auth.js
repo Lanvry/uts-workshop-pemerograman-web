@@ -4,6 +4,7 @@ var isAuth = require("../middleware/isAuth");
 
 const bcrypt = require("bcryptjs");
 const Model_Users = require("../model/Model_Users");
+const Model_Berita = require("../model/Model_Berita");
 
 /* GET login page. */
 router.get("/login", function (req, res, next) {
@@ -75,12 +76,23 @@ router.get('/logout', function (req, res, next) {
 });
 
 /* GET dashboard. */
-router.get('/dashboard', isAuth, function (req, res, next) {
-    res.render('dashboard', {
-        title: 'Dashboard Penulis',
-        penulis: req.session.user,
-        messages: req.flash()
-    });
+router.get('/dashboard', isAuth, async function (req, res, next) {
+    try {
+        const total = await Model_Berita.countAll(req.session.user.id);
+        res.render('dashboard', {
+            title: 'Dashboard Penulis',
+            penulis: req.session.user,
+            messages: req.flash(),
+            total_berita: total
+        });
+    } catch(err) {
+        res.render('dashboard', {
+            title: 'Dashboard Penulis',
+            penulis: req.session.user,
+            messages: req.flash(),
+            total_berita: 0
+        });
+    }
 });
 
 

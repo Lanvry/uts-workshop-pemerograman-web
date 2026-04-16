@@ -17,14 +17,14 @@
                 <h3>Buat Berita</h3>
                 <p>Tulis artikel baru</p>
             </div>
-            <a class="stat-link" href="#">Mulai Menulis →</a>
+            <a class="stat-link" href="/dashboard/berita/create">Mulai Menulis →</a>
         </div>
 
         <div class="stat-card">
             <div class="stat-icon">📰</div>
             <div class="stat-info">
                 <h3>Berita Saya</h3>
-                <p>Kelola semua artikel</p>
+                <p>Total: <strong><%= typeof total_berita !== 'undefined' ? total_berita : 0 %></strong> artikel dipublikasi</p>
             </div>
             <a class="stat-link" href="/dashboard/berita">Lihat Semua →</a>
         </div>

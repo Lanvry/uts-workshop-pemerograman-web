@@ -1,0 +1,42 @@
+<%- include('../partials/head', { css_file: 'dashboard.css' }) %>
+<%- include('../partials/navbar', { penulis: penulis }) %>
+
+<main class="main-content">
+    <div class="dashboard-header" style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+            <h2 class="page-title">Tambah Berita</h2>
+            <p class="page-sub">Buat publikasi berita baru</p>
+        </div>
+        <a href="/dashboard/berita" class="btn-logout" style="border-color:#ccc;">&larr; Kembali</a>
+    </div>
+
+    <%- include('../partials/messages') %>
+
+    <div class="stat-card" style="max-width: 800px;">
+        <form action="/dashboard/berita/store" method="POST" enctype="multipart/form-data">
+            
+            <div style="margin-bottom: 1.5rem;">
+                <label for="judul" style="display:block; font-weight:600; margin-bottom:0.5rem; color:#111;">Judul Berita</label>
+                <input type="text" id="judul" name="judul" required style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family:inherit;">
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+                <label for="gambar_berita" style="display:block; font-weight:600; margin-bottom:0.5rem; color:#111;">Gambar Berita</label>
+                <input type="file" id="gambar_berita" name="gambar_berita" accept="image/*" style="width:100%; padding:0.5rem; border:1px solid #ccc; border-radius:4px; font-family:inherit;">
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+                <label for="isi_berita" style="display:block; font-weight:600; margin-bottom:0.5rem; color:#111;">Isi Berita</label>
+                <textarea id="isi_berita" name="isi_berita" rows="10" required style="width:100%; padding:0.75rem; border:1px solid #ccc; border-radius:4px; font-family:inherit; resize:vertical;"></textarea>
+            </div>
+
+            <div style="display:flex; gap: 1rem; margin-top: 2rem;">
+                <button type="submit" class="btn-table btn-table-solid" style="padding: 0.75rem 1.5rem; font-size: 1rem;">Simpan Berita</button>
+                <a href="/dashboard/berita" class="btn-table btn-table-outline" style="padding: 0.65rem 1.5rem; font-size: 1rem;">Batal</a>
+            </div>
+
+        </form>
+    </div>
+</main>
+
+<%- include('../partials/foot') %>
