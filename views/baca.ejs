@@ -13,12 +13,27 @@
 </nav>
 
 <style>
-.article-container { max-width: 800px; margin: 0 auto; padding: 3rem 1rem; }
-.article-title { font-size: 3rem; font-weight: 800; line-height: 1.1; color: #111; margin-bottom: 1rem; }
-.article-meta { font-size: 1rem; color: #555; margin-bottom: 2rem; border-bottom: 2px solid #111; padding-bottom: 1rem; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; display: flex; justify-content: space-between;}
-.article-image { width: 100%; max-height: 500px; object-fit: cover; border-radius: 4px; margin-bottom: 2rem; border: 1px solid #eaeaea; }
-.article-body { font-size: 1.15rem; line-height: 1.8; color: #222; font-family: Georgia, serif; white-space: pre-wrap; }
-@media (max-width: 768px) { .article-title { font-size: 2rem; } .article-meta { flex-direction: column; gap: 0.5rem; } }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap');
+
+body { background-color: #fafafa; margin: 0; }
+.navbar { background: #fff; padding: 1.5rem 2rem; box-shadow: 0 1px 4px rgba(0,0,0,0.02); }
+.article-container { max-width: 720px; margin: 0 auto; padding: 4rem 1.5rem; }
+
+.article-title { font-family: 'Inter', sans-serif; font-size: 3.5rem; font-weight: 900; line-height: 1.15; color: #111; margin-bottom: 1.5rem; letter-spacing: -1.5px; }
+.article-meta { font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #666; margin-bottom: 3rem; border-top: 1px solid #eaeaea; border-bottom: 1px solid #eaeaea; padding: 1rem 0; font-weight: 600; display: flex; justify-content: space-between; align-items: center;}
+.article-image { width: 100%; max-height: 480px; object-fit: cover; border-radius: 12px; margin-bottom: 3rem; box-shadow: 0 8px 30px rgba(0,0,0,0.06); }
+
+.article-body { font-family: 'Merriweather', serif; font-size: 1.25rem; line-height: 1.95; color: #2c2c2c; }
+.article-body p { margin-bottom: 1.75rem; }
+.article-body strong { color: #111; font-weight: 700; }
+.article-body ul, .article-body ol { margin-bottom: 1.75rem; padding-left: 1.5rem; }
+.article-body li { margin-bottom: 0.5rem; }
+
+@media (max-width: 768px) { 
+    .article-title { font-size: 2.25rem; letter-spacing: -1px; } 
+    .article-meta { flex-direction: column; gap: 0.5rem; align-items: flex-start; } 
+    .article-body { font-size: 1.15rem; line-height: 1.8; }
+}
 </style>
 
 <article class="article-container">
