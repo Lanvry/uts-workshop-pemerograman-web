@@ -10,6 +10,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var authRouter = require('./routes/auth');
+var beritaRouter = require('./routes/berita');
 
 var app = express();
 
@@ -22,7 +23,7 @@ app.use(session({
     secret: 'kunci_rahasia_bebas',
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 60000 * 60 } // Session aktif selama 1 jam
+    cookie: { maxAge: 60000 * 60 * 24 } // Session aktif selama 1 jam
 }));
 
 app.use(flash());
@@ -35,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/', authRouter);
+app.use('/dashboard/berita', beritaRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
